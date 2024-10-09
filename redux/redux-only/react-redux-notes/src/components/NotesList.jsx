@@ -1,37 +1,37 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import {
-//   deleteNoteAction,
-//   fetchNotesAction,
-// } from "../redux/actions/notesAction";
-
 import "./NotesList.css";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNoteAction, fetchNotesAction } from "../redux/actions/notesAction";
+
 
 const NotesList = () => {
-  //dispatch
+  // dispatch
+  const dispatch = useDispatch();
+  useEffect(() => { dispatch(fetchNotesAction()) }, []);
 
-  // useEffect(() => {
-  //   dispatch(fetchNotesAction());
-  // }, []);
-  //get data from store
-  // const notes = useSelector(storeData => {
-  //   return storeData.notes;
-  // });
+  // get data from store
+  const data = useSelector((storeData) => {
+    return storeData.notes
+  })
+
+
 
   return (
     <>
       <h1>Notes List</h1>
-
-
-      <div className="item-container">
-        <div className="item-content">
-          <h2>hello</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas accusamus, doloribus dolor enim nostrum odio sint voluptates. Quia corporis at, deleniti maiores aliquam architecto consequatur officiis, enim, in iure quis?</p>
-          <button>
-            Delete
-          </button>
+      {data.map((note) => (
+        <div className="item-container" key={note.id}>
+          <div className="item-content">
+            <h2>{note.title}</h2>
+            <p>{note.content}</p>
+            <button
+              onClick={() => dispatch(deleteNoteAction(note.id))}
+            >
+              Delete
+            </button>
+          </div>
         </div>
-      </div>
+      ))}
 
     </>
   );

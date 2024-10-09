@@ -16,13 +16,13 @@ export const deleteNoteAction = (id) => {
     payload: id,
   };
 };
+
 // fetch notes action creator
 export const fetchNotesAction = () => {
   return {
     type: FETCH_NOTE,
   };
 };
-//reducer
 
 //store
 
